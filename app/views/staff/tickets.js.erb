@@ -1,0 +1,19 @@
+<% if current_user.is_company_admin? %>
+	$("#div_update").html("<%= escape_javascript(render("fetchAll")) %>");
+<% else %>
+	$("#div_update").html("<%= escape_javascript(render("fetchAllTickets")) %>");
+<% end %>	
+$("#count_records").html("<%= @tickets.count %>");
+$("#spinner").hide();
+$(".dropdown-menu").hide();
+$('#check_all').click (function() {
+  $(this).closest('table').find('input[type=checkbox]').prop('checked', this.checked);
+});
+
+$(".table input:checkbox").click (function() {
+	var checked = $(".table input:checked").length > 0;
+	$(".dropdown-menu").hide();
+	if (checked) {
+		$(".dropdown-menu").show();
+	}	
+});	

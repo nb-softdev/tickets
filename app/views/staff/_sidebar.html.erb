@@ -1,0 +1,37 @@
+<div class="col-lg-2 sidebar">
+	  <p>
+	  	<%= link_to "All&nbsp;#{image_tag('down_arrow.gif')}".html_safe, staff_tickets_path(@current_company.sub_domain), :id => "sidebar_all_lnk", :remote => true %>
+	  </p>
+	  <div id="sidebar_all">
+	  	<% if current_user.is_company_admin_or_staff? %>
+		  	<p>
+		  		<%= link_to "My Tickets&nbsp;#{image_tag('down_arrow.gif')}".html_safe, staff_tickets_path(@current_company.sub_domain, :my_ticket => true), :id => "sidebar_all_lnk", :remote => true %>
+		  	</p>
+		  	
+				<p><a href="javascript:void(0);" id="sidebar_label_lnk">Label&nbsp;<%= image_tag("down_arrow.gif") %></a></p>
+				<ul id="sidebar_label" style="display: none;">
+					<% current_user.tags.each do |t| %>
+			    	<li><%= link_to t.name, staff_tickets_path(@current_company.sub_domain, :tag => t.name), :remote => true %></li>
+			    <% end %>
+				</ul>
+			<% end %>	
+			<p><a href="javascript:void(0);" id="sidebar_status_lnk">Status&nbsp;<%= image_tag("down_arrow.gif") %></a></p>
+			<ul id="sidebar_status" style="display: none;">
+				<% ticket_status_hash.each do |k,v| %>
+		    	<li><%= link_to v, staff_tickets_path(@current_company.sub_domain, "ticket[status_id]" => k), :remote => true %></li>
+		    <% end %>
+			</ul>
+			<p><a href="javascript:void(0);" id="sidebar_priority_lnk">Priority&nbsp;<%= image_tag("down_arrow.gif") %></a></p>
+			<ul id="sidebar_priority" style="display: none;">
+				<% ticket_priority_hash.each do |k,v| %>
+		    	<li><%= link_to v, staff_tickets_path(@current_company.sub_domain, "ticket[priority_id]" => k), :remote => true %></li>
+		    <% end %>
+			</ul>
+			<p><a href="javascript:void(0);" id="sidebar_type_lnk">Type&nbsp;<%= image_tag("down_arrow.gif") %></a></p>
+			<ul id="sidebar_type" style="display: none;">
+				<% ticket_types_hash.each do |k,v| %>
+		    	<li><%= link_to v, staff_tickets_path(@current_company.sub_domain, "ticket[ticket_type]" => k), :remote => true %></li>
+		    <% end %>
+			</ul>	
+		</div>	
+</div>

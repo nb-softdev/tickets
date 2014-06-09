@@ -1,0 +1,111 @@
+<div class="col-lg-12">
+<%= form_for ["admin", @o_single], :html => { :class => 'form-inline' } do |f| %>
+
+	    <div class="control-group">
+	      <%= f.label :name, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :name, :class => 'form-control' %>
+	       	<% if @o_single.errors[:name].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:name].first %></span>
+	      	<% end %>        
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :business_type, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :business_type, :class => 'form-control' %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :email, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :email, :class => 'form-control' %>
+	       	<% if @o_single.errors[:email].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :sub_domain, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :sub_domain, :class => 'form-control' %>
+	       	<% if @o_single.errors[:sub_domain].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:sub_domain].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :url, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :url, :class => 'form-control' %>
+	       	<% if @o_single.errors[:url].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:url].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :phone, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :phone, :class => 'form-control' %>
+	      </div>
+	    </div>      
+	
+	    <div class="control-group">
+	      <%= f.label :mobile, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :mobile, :class => 'form-control' %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :address, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :address, :class => 'form-control' %>
+	      </div>
+	    </div>     
+	
+	    <div class="control-group">
+	        <%= f.label :logo, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	        <div class="form-group">
+	            <%= f.file_field :logo, :class => 'form-control form-control-browse' %>
+	        </div>
+	    </div>
+	    <% if @o_single.logo? %>
+	        <div class="control-group">
+	        	<label class="control-label">&nbsp;</label><span class="redStart">&nbsp;</span>
+	        	<div class="form-group">
+	        	<%= image_tag @o_single.logo_url(:logo) %>
+	        	</div>
+	        </div>
+	    <% end %>
+
+    <div class="control-group">
+      <%= f.label :is_active, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+      <div class="form-group">
+        <%= f.check_box :is_active, :class => '' %>
+      </div>
+    </div>
+    <div class="cl"></div>
+    <div class="control-group">
+      <%= f.label :is_confirmed, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+      <div class="form-group">
+        <%= f.check_box :is_confirmed, :class => '' %>
+      </div>
+    </div>    
+
+	    <div class="control-group form-action">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+		      <%= f.submit nil, :class => 'btn btn-warning btn-lg' %>
+		      <%= link_to 'Cancel', admin_companies_url, :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>
+
+
+<% end %>
+</div>

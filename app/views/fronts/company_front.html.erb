@@ -1,0 +1,66 @@
+	<div id="headerwrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<% if @current_company.present? %>
+						<h1>
+							<%= @current_company.name %>
+						</h1>
+						<% if @current_company.is_confirmed_and_active? %>
+							<table class="table-condensed table">
+								<tr><td>Company URL:</td><td><%= @current_company.url %></td></tr>
+								<tr><td>Contact:</td><td><%= @current_company.mobile %></td></tr>
+								<tr><td>Email:</td><td><%= @current_company.email %></td></tr>
+								<tr><td>Sub Domain:</td><td><%= @current_company.sub_domain %></td></tr>
+							</table>
+						<% else %>	
+							<h1>
+								<%= "#{params[:sub_domain]} is not activated. Please contact to administrator." %>
+								<h2><%= link_to 'Contact To Administrator', contact_us_path, :class => "btn btn-warning btn-lg" %></h2>
+							</h1>
+						<% end %>				
+					<% else %>	
+						<h1>
+							<%= "#{params[:sub_domain]} is not registered with SupportEngine." %>
+							<h2><%= link_to 'JOIN US', join_us_path, :class => "btn btn-warning btn-lg" %></h2>
+						</h1>
+					<% end %>					
+				</div><!-- /col-lg-6 -->
+				<div class="col-lg-6">
+					<%= image_tag "ipad-hand.png", :class => "img-responsive" %>
+				</div><!-- /col-lg-6 -->
+				
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /headerwrap -->
+	
+	<% if @current_company.present? and @current_company.is_confirmed_and_active? %>
+		<div class="container">
+			<div class="row mt centered">
+				<div class="col-lg-6 col-lg-offset-3">
+					<h3>Our Awesome Team. Support Lovers.</h3>
+					<h4>Amazing for your customers, powerful for your team and intelligent for your business..</h4>
+				</div>
+			</div><!-- /row -->
+			
+			<div class="row mt centered">
+				<div class="col-lg-4">
+					<%= image_tag "pic1.jpg", :width => "140", :class => "img-circle" %>
+					<h4>Eugene Mironichev</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				</div><!--/col-lg-4 -->
+	
+				<div class="col-lg-4">
+					<%= image_tag "pic2.jpg", :width => "140", :class => "img-circle" %>
+					<h4>Pete Ford</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				</div><!--/col-lg-4 -->
+	
+				<div class="col-lg-4">
+					<%= image_tag "pic3.jpg", :width => "140", :class => "img-circle" %>
+					<h4>Angelica Finning</h4>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				</div><!--/col-lg-4 -->
+			</div><!-- /row -->
+		</div><!-- /container -->
+	<% end %>

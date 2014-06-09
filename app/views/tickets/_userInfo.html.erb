@@ -1,0 +1,27 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">User Detail</legend>
+		<%= fields_for :user do |user_fields| %>
+		
+		
+	    <div class="control-group">
+	      <%= f.label :first_name, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= user_fields.text_field :first_name, :class => 'form-control' %>
+	      </div>
+	    </div>	 
+	    
+	    
+	    <div class="control-group">
+	      <%= f.label :email, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= user_fields.text_field :email, :class => 'form-control' %>
+	       	<% if @user and @user.errors[:email].any? %>
+	        	<span class="text-error text-message"><%= @user.errors[:email].first %></span>
+	      	<% end %>	        
+	        <div id="email_error"></div>
+	      </div>
+	    </div>	 	    		
+
+
+		<% end %>
+</fieldset>

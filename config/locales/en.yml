@@ -1,0 +1,99 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     &lt;%= t('hello') %&gt;
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  role: "Role"
+  username: "Username"
+  email: "Email"
+  general:
+    please_enter_post: "Please enter post"
+    successfully_applied: "Successfully applied"
+    you_are_not_admin_user: "You are not admin user"
+    successfully_sent_request_administrator: "Request sent successfully to SupportEngine."
+    file_does_not_exist: "File does not exist"
+    successfully_sent_inquiry: "Successfully sent inquiry"
+    send: "Send"
+    admin_setup: "Admin Setup"
+    welcome_user: "Welcome %{username}"
+    content: "Content"
+    message: "Message"
+    all: "All"
+    app_title: "SupportEngine"
+    confirm: "Are you sure ?"
+    destroy: "Destroy"
+    edit: "Edit"
+    actions: "Actions"
+    active: "Active"
+    date: "Date"
+    record_not_found: "Record(s) not found."
+    add: "Add"
+    search: "Filter"
+    title: "Support Engine"
+    footer_msg: "Copyright © 2014. All rights reserved."
+    login: Login
+    logout: Logout
+    reset_password: Reset Password
+    password: Password
+    password_confirmation: Password confirmation
+    name: Name
+    change_password: Change Password
+    sign_up: Sign Up
+    user_dashboard: User Dashboard
+    admin_dashboard: Admin Dashboard
+    save: Save
+    forgot_password: Forgot Password
+    no_user_exists_for_provided_email_address: User not found
+    click_here_to_recover_your_account: Forgot Password ?
+    password_has_been_sent_to_your_email_address: Password has been reset and new password was sent to your e-mail.
+    password_successfully_updated: Password successfully updated
+    terms_and_conditions: 'I accept <a rel="" target="">Terms Of Service</a>'
+    term_error: Please accept Temrs of Service to continue
+    login_successful: Successful Logged In
+    logout_successful: Successfully Logout
+    successfully_created: Successfully created.
+    you_are_not_active_user: "You are not active user."
+    successfully_updated: Successfully updated.
+    successfully_destroyed: Successfully destroyed.
+    successfully_registered: "Successfully registered. Confirmation email has been sent to your provided email account. Please click on link to confirm."
+    user_active_successfully: "Activated successfully."
+    already_activated: "Already activated"
+    show: Show
+    dashboard: Dashboard
+    users: Users
+    tickets: Tickets
+    footer_pages: Footer pages
+    contacts: Contacts
+    profile: Profile
+    cancel: Cancel
+  mail:
+   registration_confirmation:
+     complete_this_step_to_start_using_your_account: Complete this step to start using your account
+     mail_header: Dear %{username},
+     you_are_recieving_this_email_because: You are receiving this message because you signed up for %{application} account.
+     to_complete_the_sign_up_process: To complete the sign up process, and start using %{application}, please click the following link
+     looking_forward_to_having_you_on: Looking forward to having you on %{application}!
+     thank_you: Thank you for registering with %{application}
+     confirm_your_email_to_start: Confirm your email to start
+   forgot_password_confirmation:
+     mail_header: Dear %{username},
+     your_password_has_been_reset_successfully: Your password has been reset successfully.
+     your_new_password_is: "Your new password is: %{newpassword}"
+     thank_you: Thank you

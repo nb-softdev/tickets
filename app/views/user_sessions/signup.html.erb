@@ -1,0 +1,58 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			<%= t("general.sign_up") %>
+		</h1>
+	</div>
+</div>
+<div class="col-lg-12">
+	
+	<%= form_for @o_single, :url => signup_path, :html => { :class => 'form-inline' } do |f| %>
+		<%= f.hidden_field :company_id, :value => @current_company.id %>
+	    <div class="control-group">
+	      <div class="form-group">
+	        <%= f.text_field :email, :class => 'form-control', :placeholder => 'Email' %>
+	       	<% if @o_single.errors[:email].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <div class="form-group">
+	        <%= f.password_field :password, :class => 'form-control', :placeholder => 'Password' %>
+	       	<% if @o_single.errors[:password].any? %>
+	        	<span class="text-error text-message"><%= @o_single.errors[:password].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	
+	   
+	    <div class="control-group">
+	      <div class="form-group">
+	      	<div style="float:left;">
+	      		<%= f.check_box :term, :class => 'check_box' %>
+	  			<%= t("general.terms_and_conditions").html_safe %>
+	  			<span class="text-error text-message"><%= t("general.term_error") if @o_single.errors[:term].first %></span>
+	      	</div>
+	      </div>
+	    </div>	    
+	    
+	    <div class="control-group form-action">
+	    	<div class="form-group">
+	    		<%= f.submit t("general.sign_up"), :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>	    
+	    
+	    
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+$('#user_birth_date').datetimepicker({
+    language: 'en',
+    format: "dd/MM/yyyy"
+  });
+
+</script>  

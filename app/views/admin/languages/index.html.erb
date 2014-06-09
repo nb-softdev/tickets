@@ -1,0 +1,28 @@
+<%- model_class = Language -%>
+
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<div class="page-header">
+  <h4><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (<span id="count_records"><%= @o_all.size %></span>)
+	<div class="searchRight fr">
+		<%= link_to t("general.search"), "javascript:void(0)", :class => 'btn btn-primary btn-small', 'id' => 'search_button' %>&nbsp;
+
+		<%= link_to t('general.add'),
+		            new_admin_language_path,
+		            :class => 'btn btn-primary btn-small' %>
+
+    <%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-small btn-danger' %>
+	</div>
+	</h4>
+</div>
+
+
+<div id="div_update_search">
+  <% params[:model] = controller_name.classify %>
+  <%= render "fronts/search" %>
+</div>
+
+<div id="div_update">
+	<%= render "fetchAll" %>
+</div>

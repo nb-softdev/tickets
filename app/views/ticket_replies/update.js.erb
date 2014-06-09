@@ -1,0 +1,9 @@
+
+<% if @ticket_reply.errors.any? %>
+		$("#show_desc_<%= params[:id].to_s %>").html("<span class='error-post text-error'><%= t('general.please_enter_post') %></span>");
+		$("#show_desc_<%= params[:id].to_s %>").show();
+<% else %>
+		$("#edit_desc_<%= params[:id].to_s %>").html("");
+		$("#show_desc_<%= params[:id].to_s %>").html("<%= escape_javascript(render("update")) %>");
+		$("#show_desc_<%= params[:id].to_s %>").show();
+<% end %>

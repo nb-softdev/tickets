@@ -1,0 +1,37 @@
+<%= form_for @o_single, :url => { :action => 'index' }, :html => { :id => "index_form" }, :method => "get", :remote => true do |f| %>
+<table class="table table-striped">
+ <thead> 
+  <tr>
+  	<th width="5%"><%= check_box_tag "check_all", "" %><%= t("general.all") %></th>
+    <th width="20%"><%= sortable "name", t("name") %></th>
+    <th width="15%"><%= t("general.actions") %></th>
+  </tr>
+ </thead> 
+  
+  <tbody>
+    <% if @o_all.size > 0 %>
+      <% @o_all.each do |o_row| %>
+        <tr>
+        	<th><%= check_box_tag "rec["+o_row.id.to_s+"]", "" %></th>
+          <td><%= o_row.name %></td>
+          <td> 
+			      <%= link_to t('general.edit'),
+			                  edit_tag_path(@current_company.sub_domain, o_row), :class => 'btn btn-warning btn-mini' %>
+            
+			      <%= link_to t('general.destroy'),
+			                  tag_path(@current_company.sub_domain, o_row),
+			                  :method => :delete,
+			                  :data => { :confirm => t('general.confirm') },
+			                  :class => 'btn btn-danger btn-mini' %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><th colspan="6"><%= t("general.record_not_found") %></th></tr>
+    <% end %>      
+  </tbody>
+</table>
+<div class="fr">
+	<%= will_paginate @o_all %>				
+</div>	
+<% end %>

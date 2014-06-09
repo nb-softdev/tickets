@@ -1,0 +1,53 @@
+<div class="col-lg-12">
+<%= form_for ["admin", @o_single], :html => { :class => 'form-inline' } do |f| %>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="form-group">
+        <%= f.text_field :name, :class => 'form-control' %>
+       	<% if @o_single.errors[:name].any? %>
+        	<span class="text-error"><%= @o_single.errors[:name].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :email, :class => 'control-label' %>
+      <div class="form-group">
+        <%= f.text_field :email, :class => 'form-control' %>
+       	<% if @o_single.errors[:email].any? %>
+        	<span class="text-error"><%= @o_single.errors[:email].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+    <div class="control-group <%= @o_single.errors[:message].any? ? 'error' : '' %>">
+      <%= f.label :message, :class => 'control-label' %>
+      <div class="form-group">
+        <%= f.text_area :message, :placeholder => t("general.message"), :class => "textArea wysihtml5" %>
+       	<% if @o_single.errors[:message].any? %>
+        	<span class="text-error"><%= @o_single.errors[:message].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', admin_contacts_url, :class => 'btn' %>
+    </div>
+
+<% end %>
+</div>
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+  $(document).ready(function(){
+
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+
+  })
+</script>

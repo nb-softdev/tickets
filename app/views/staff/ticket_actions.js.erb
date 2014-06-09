@@ -1,0 +1,8 @@
+<% if params[:cancel] %>
+	$("#ticket_actions_<%= @ticket.id.to_s %>").html("");
+<% else %>	
+	$("#ticket_actions_<%= @ticket.id.to_s %>").html("<%= escape_javascript(render("ticket_actions")) %>");
+	$("#priority_id_<%= @ticket.id.to_s %>").html("<%= ticket_priority_hash[@ticket.priority_id.to_s] %>");
+	$("#status_id_<%= @ticket.id.to_s %>").html("<%= ticket_status_hash[@ticket.status_id.to_s] %>");
+	$("#staff_id_<%= @ticket.id.to_s %>").html("<%= @ticket.staff.try(:name) %>");	
+<% end %>	

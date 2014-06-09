@@ -1,0 +1,27 @@
+<div class="row centered">
+	<div class="col-lg-12">
+	  <h1>
+	  	Logs (Ticket ID: <%= @ticket.ticket_secret %>)
+			<div class="searchRight fr">
+				<%= link_to t('general.back'),
+				            staff_tickets_path(@current_company.sub_domain),
+				            :class => 'btn btn-primary btn-small' %>
+			</div>	  	
+	  </h1>
+	</div>
+</div>
+<div class="cl">&nbsp;</div>
+<div class="col-lg-12">
+	<table class="table table-striped">	
+	    <% if @o_all.size > 0 %>
+	      <% @o_all.each do |o_row| %>
+	      	<tr>
+						<td><%= o_row.logs.html_safe %></td>
+	        </tr>
+	      <% end %>      
+	    <% else %>
+	      <tr><th colspan="7"><%= t("general.record_not_found") %></th></tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

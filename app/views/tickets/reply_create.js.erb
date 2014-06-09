@@ -1,0 +1,14 @@
+$("#ticket-replies-list").html("<%= escape_javascript(render("ticket_reply_list")) %>");
+$('#new_ticket_reply')[0].reset();
+
+
+<% if flash[:notice_reply] %>
+	$("#flash_message").html("<%= flash[:notice_reply] %>");
+	$("#flash_message").removeClass("alert-success");
+	$("#flash_message").addClass("alert fade in alert-error");
+<% end %>
+<% if flash[:success_reply] %>
+	$("#flash_message").html("<%= flash[:success_reply] %>");
+	$("#flash_message").removeClass("alert fade in alert-error");
+	$("#flash_message").addClass("alert-success");
+<% end %>		

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+  <html lang='en'>
+    <head>
+      <meta charset='utf-8'>
+      <title></title>
+    </head>
+    <body>
+      <div class='email-body'>  
+        <h2><%= "#{@company.name}, has sent request to join SupportEngine" %></h2>
+
+        <%= "Company Details:" %>
+  
+        <p>Name: <%= @company.name %></p>
+        
+        <p>URL: <%= @company.url %></p>
+        
+        <p>Email: <%= @company.email %></p>
+        
+        <p>Address: <%= @company.address %></p>
+        
+        <p>Mobile: <%= @company.mobile %></p>
+        
+        <p>Phone: <%= @company.phone %></p>
+        
+        <p>Business Type: <%= @company.business_type %></p>
+
+  			SupportEngine
+  			
+      </div>
+    </body>
+</html>

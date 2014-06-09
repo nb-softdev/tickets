@@ -1,0 +1,50 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			<%= t("general.login") %>
+		</h1>
+	</div>
+</div>
+
+<div class="col-lg-12">
+	<%= form_for @user_session, :url => {:action => "admin_login"}, :html => { :class => 'form-inline' } do |f| %>
+	
+		<% if flash[:error] %>
+		  <div class="control-group">
+		    <div class="form-group">
+				  <div class="text-error" id="notice"><%= flash[:error] %></div>
+				  <% flash[:error] = nil %>
+		    </div>
+		  </div>
+		<% end %>    
+	
+	  <div class="control-group">
+	    <div class="form-group">
+				<% @user_session.errors.full_messages.each do |msg| %>
+					<% @msg_var = "general.#{msg.gsub(' ', "_")}" %>
+					<span class="text-error"><%= t(@msg_var) %></span>
+				<% end %>
+	    </div>
+	  </div>
+	
+	  <div class="control-group">
+	    <div class="form-group">
+	      <%= f.text_field :email, :placeholder => 'Email', :class => "form-control" %>
+	    </div>
+	  </div>
+	
+	  <div class="control-group">
+	    <div class="form-group">
+	      <%= f.password_field :password, :placeholder => 'Password', :class => "form-control" %>
+	    </div>
+	  </div>
+	
+	    <div class="control-group form-action">
+	    	<div class="form-group">
+					<%= f.submit t("general.login"), :class => 'btn btn-warning btn-lg' %>
+					<%= link_to t("general.click_here_to_recover_your_account"), admin_forgot_password_path, :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>
+	
+	<% end %>
+</div>

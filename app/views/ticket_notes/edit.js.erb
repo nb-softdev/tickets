@@ -1,0 +1,8 @@
+<% if params[:cancel] %>
+	$("#edit_note_<%= params[:id].to_s %>").html("");
+	$("#show_note_<%= params[:id].to_s %>").html("<%= escape_javascript(render("update")) %>");
+	$("#show_note_<%= params[:id].to_s %>").show();
+<% else %>
+	$("#edit_note_<%= params[:id].to_s %>").html("<%= escape_javascript(render("edit")) %>");
+	$("#show_note_<%= params[:id].to_s %>").html("");
+<% end %>

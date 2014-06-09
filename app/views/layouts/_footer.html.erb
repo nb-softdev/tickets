@@ -1,0 +1,28 @@
+<div class="container footer">
+	<hr>
+	<p class="centered">
+		<% if get_all_pages.size > 0 %>
+			| <% for o_row in get_all_pages %>
+				<%= link_to o_row.name, "/other/#{o_row.page_route}" %> |
+			<% end %>
+		<% end %><%=raw t("general.footer_msg") %>			
+	</p>
+	<!--<div id="spinner" style="margin: 0px; left: 0px; display: none;" class="loaderimgText">
+	  <%= image_tag "loader.gif" %><br><div class="backTransparant"></div>
+	</div>-->		
+</div><!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input:text").eq(0).focus();
+	  $('#loader_id').click (function() {
+	    $("#spinner").show();
+	  });		  
+	});  
+</script>

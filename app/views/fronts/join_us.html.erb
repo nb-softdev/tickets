@@ -1,0 +1,98 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			JOIN US
+		</h1>
+	</div>
+</div>
+<div class="col-lg-12">
+	<%= form_for @o_company, :url => join_us_path, :html => { :class => 'form-inline' } do |f| %>
+	    <div class="control-group">
+	      <%= f.label :company_name, :class => 'control-label' %>
+	      <span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :name, :class => 'form-control' %>
+	       	<% if @o_company.errors[:name].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:name].first %></span>
+	      	<% end %>        
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :business_type, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :business_type, :class => 'form-control' %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :email, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :email, :value => params[:email], :class => 'form-control' %>
+	       	<% if @o_company.errors[:email].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:email].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :sub_domain, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :sub_domain, :class => 'form-control' %>
+	       	<% if @o_company.errors[:sub_domain].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:sub_domain].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :url, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :url, :class => 'form-control' %>
+	       	<% if @o_company.errors[:url].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:url].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :phone, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :phone, :class => 'form-control' %>
+	      </div>
+	    </div>      
+	
+	    <div class="control-group">
+	      <%= f.label :mobile, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :mobile, :class => 'form-control' %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :address, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_field :address, :class => 'form-control' %>
+	      </div>
+	    </div>     
+	
+	    <div class="control-group">
+	        <%= f.label :logo, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	        <div class="form-group">
+	            <%= f.file_field :logo, :class => 'form-control form-control-browse' %>
+	        </div>
+	    </div>
+	    
+	    <div class="control-group form-action">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+	      	<%= f.submit :name => "JOIN US", :value => "JOIN US", :class => 'btn btn-warning btn-lg', :id => "loader_id" %>
+	      	<%= link_to 'Cancel', root_url, :class => 'btn btn-warning btn-lg' %>
+					<span id="spinner" style="display: none;" class="loaderimgText">
+					  <%= image_tag "ajax-loader_wheel.gif" %>
+					</span>		      	
+	      </div>	
+	    </div>
+	
+	<% end %>
+</div>

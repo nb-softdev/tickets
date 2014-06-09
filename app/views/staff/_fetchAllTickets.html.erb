@@ -1,0 +1,39 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th width="15%"><%= sortable "ticket_secret", t("ticket_id") %></th>
+			<th width="34%"><%= sortable "subject", t("subject") %></th>
+			<th width="8%"><%= sortable "priority_id", t("general.priority") %></th>
+			<th width="8%"><%= sortable "status_id", t("general.status") %></th>
+			<th width="15%"><%= t("last_reply") %></th>
+			<th width="20%"><%= t("general.actions") %></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% if @tickets.size > 0 %>
+		<% @tickets.each do |o_row| %>
+		<tr>
+			<td> <%= link_to o_row.ticket_secret, staff_ticket_reply_path(@current_company.sub_domain, o_row.id) %> </td>
+			<td><%= o_row.subject %></td>
+			<td id="priority_id_<%= o_row.id.to_s %>"><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
+			<td id="status_id_<%= o_row.id.to_s %>"><%= ticket_status_hash[o_row.status_id.to_s] %></td>
+			<td class="greenStart"><%= o_row.last_reply_user %></td>
+			<td> <%= link_to t('general.reply'), staff_ticket_reply_path(@current_company.sub_domain, o_row.id), :class => 'btn btn-warning btn-mini' %>
+			<%= link_to t('general.action'), ticket_actions_path(@current_company.sub_domain, o_row.id), :id => "ticket_record_#{o_row.id}", :class => 'btn btn-warning btn-mini ticket_record_class', :remote => true %> </td>
+		</tr>
+		<tr id="ticket_actions_<%= o_row.id.to_s %>">
+
+		</tr>
+		<% end %>
+		<% else %>
+		<tr>
+			<th colspan="7"><%= t("general.record_not_found") %></th>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<div class="fr">
+	<%= will_paginate @tickets %>
+</div>
+

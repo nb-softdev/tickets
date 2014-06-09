@@ -1,0 +1,67 @@
+<%= form_for ["admin", @o_single], :html => { :class => 'form-horizontal' } do |f| %>
+
+	    <div class="control-group <%= @o_single.errors[:name].any? ? 'error' : '' %>">
+	      <%= f.label :name, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :name, :class => 'text_field input-xlarge' %>
+	       	<% if @o_single.errors[:name].any? %>
+	        	<span class="text-error"><%= @o_single.errors[:name].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+
+	    <div class="control-group <%= @o_single.errors[:code].any? ? 'error' : '' %>">
+	      <%= f.label :code, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :code, :class => 'input-xlarge' %>
+	       	<% if @o_single.errors[:code].any? %>
+	        	<span class="text-error"><%= @o_single.errors[:code].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+
+		<% unless @o_single.new_record? %>
+			<%
+				source_locale_file = Rails.root.join("config", "locales", "#{@o_single.code}.yml")
+				if File.exist?(source_locale_file)
+			 		source_locale_file = File.read(source_locale_file)
+			 	else
+			 		source_locale_file = ""
+			 	end
+			%>
+    	<div class="control-group">
+    		<%= f.label :content, :class => 'control-label' %>
+    		<div class="controls">
+    			<%= f.text_area :content, :value => source_locale_file, :class => 'textArea' %>
+    		</div>
+    	</div>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label :is_active, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.check_box :is_active, :class => 'check_box' %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', admin_languages_url, :class => 'btn' %>
+    </div>
+
+<% end %>
+
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+  $(document).ready(function(){
+
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+
+  })
+</script>

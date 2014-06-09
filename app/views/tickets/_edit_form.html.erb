@@ -1,0 +1,42 @@
+<div class="col-lg-12">
+	<%= form_for @ticket, :url => ticket_path(@current_company.sub_domain, @ticket.id), :html => { :class => 'form-inline', :id => "ticket_form" } do |f| %>
+	
+	<fieldset class="scheduler-border">
+	    <legend class="scheduler-border">Edit Properties</legend>
+		  <div class="field">
+		  	
+	    <div class="control-group">
+	      <%= f.label :priority_id, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    
+			     <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'form-control', :onchange => "updateTicketPriority('#{@ticket.id}', this.value)" } %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :status_id, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'form-control', :onchange => "updateTicketStatus('#{@ticket.id}', this.value)"} %>
+		
+			   	<% if @ticket.errors[:status_id].any? %>
+			    	<span class="text-error text-message"><%= @ticket.errors[:status_id].first %></span>
+			  	<% end %>			    
+	      </div>
+	    </div>	    		  	
+		  	
+		  	  	
+	</fieldset>
+	  
+	<% end %>
+
+</div>
+
+<script type="text/javascript">
+  function updateTicketPriority(tid, pid) {
+    $.post( "/companies/<%= @current_company.sub_domain %>/update/ticket", { id: tid, "ticket": { priority_id: pid } } );
+  }
+  
+  function updateTicketStatus(tid, sid) {
+    $.post( "/companies/<%= @current_company.sub_domain %>/update/ticket", { id: tid, "ticket": { status_id: sid } } );
+  }
+</script>

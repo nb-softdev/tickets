@@ -1,0 +1,76 @@
+<% if flash[:notice_reply] %>
+  <div class="alert alert-warning"><%= flash[:notice_reply] %></div>
+  <% flash[:notice_reply] = nil %>
+<% end %>  
+
+<% if flash[:success_reply] %>
+  <div class="alert alert-success"><%= flash[:success_reply] %></div>
+  <% flash[:success_reply] = nil %>
+<% end %>
+
+<%= form_for @ticket_reply, :url => reply_create_path(@current_company.sub_domain), :html => { :multipart => true, :class => 'form-inline', :id => 'ticket_reply_form_id' } do |f| %>
+  <%= f.hidden_field :ticket_id, :value => @ticket.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :user_type, :value => "User" %>
+  
+  <%= hidden_field_tag "reply_close", "", :id => 'input_reply_close' %>
+     
+	<div id="flash_message" class="field"></div>
+
+	    <div class="control-group">
+	      <label class="control-label">&nbsp;</label>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket_reply.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+  
+	    <div class="control-group">
+	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.file_field :attached_file, :class => 'form-control form-control-browse' %>
+	      </div>
+	    </div>	 <br />
+
+
+    <div class="control-group">
+    	<label class="control-label">&nbsp;</label>
+    	<div class="form-group">
+		    <%= f.button "Reply", :class => 'btn btn-warning btn-lg', :id => "reply" %>
+		    <%= f.button "Reply & Close", :class => 'btn btn-warning btn-lg', :id => "reply_close", :type => "button" %>
+		    <%= link_to "Cancel", tickets_path, :class => 'btn btn-warning btn-lg' %>
+      </div>	
+    </div>
+
+<% end %>
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+	
+  $(document).ready(function(){
+
+		$("#reply").submit(function() {
+		    /* Do Something */
+		    return false;
+		});
+
+	  $("#reply_close").click(function(){
+	    if (!confirm("Do you want to close ticket?")){
+	    	
+	      return false;
+	    }else {
+	    	$("#input_reply_close").val(true);
+	    	$("#ticket_reply_form_id").submit();
+	    }
+	  });
+	  
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
+
+  });
+</script>

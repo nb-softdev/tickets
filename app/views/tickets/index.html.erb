@@ -1,0 +1,25 @@
+<%- model_class = Ticket -%>
+
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+	<% if flash[:success_reply] %>
+	  <div class="alert fade in alert-success"><%= flash[:success_reply] %></div>
+	  <% flash[:success_reply] = nil %>
+	<% end %>   	
+
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			<%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (<span id="count_records"><%= @o_all.count %></span>)
+		</h1>
+	</div>
+</div>
+  
+
+
+<div id="div_update" class="col-lg-12"">
+	<%= render "fetchAll" %>
+</div>
+
+

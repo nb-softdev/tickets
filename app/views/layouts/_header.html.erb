@@ -1,0 +1,92 @@
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+      	
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		    	<% if @current_company %>
+		    		<% if @current_company.logo? %>
+		    			<a class="navbar-brand nav-brand-logo" href="/companies/<%= @current_company.sub_domain %>"><%= image_tag(@current_company.logo_url(:logo), :width => "40px", :height => "20px") %></a>
+			    	<% else %>
+			      	<a class="navbar-brand nav-brand-logo" href="/companies/<%= @current_company.sub_domain %>"><%= @current_company.name %></a>
+			      <% end %>			    		
+		    		
+		    	<% else %>
+		      	<a class="navbar-brand nav-brand-logo" href="/">SupportEngine</a>
+		      <% end %>	  
+
+        	<% if current_user %>
+	        	<% if is_admin? || is_company_admin? %>
+	        		<% if is_admin? %>
+	        			<!--<li><%= link_to t("general.dashboard"), "/admin/dashboard"  %></li>-->
+	        			<%= link_to t("general.companies"), admin_companies_path, :class => "navbar-brand" %>
+		        		<%= link_to t("general.users"), admin_users_path, :class => "navbar-brand"  %>
+		      		  <%= link_to t("general.tickets"), admin_tickets_path, :class => "navbar-brand"  %>	        			
+	        		<% else %>
+	        			<%= link_to t("general.users"), users_path(@current_company.sub_domain), :class => "navbar-brand"  %>
+	      		  	<%= link_to "Tickets", staff_tickets_path, :class => "navbar-brand"  %>
+	      		  	<%#= link_to "Tags", tags_path, :class => "navbar-brand"  %>
+	      		  <% end %>
+	      		   
+	      		<% elsif is_staff? %>
+	      			<%= link_to "Tickets", staff_tickets_path, :class => "navbar-brand"  %>
+	      			<%#= link_to "Tags", tags_path, :class => "navbar-brand"  %>
+            <% elsif is_user? %>
+            	<%= link_to "Submit a ticket", new_ticket_path, :class => "navbar-brand" %>
+            	<%= link_to "Check your existing tickets", staff_tickets_path, :class => "navbar-brand" %>	      			
+	          <% end %>
+	        <% else %>
+	        	<% if @current_company %>
+	        		<% if @current_company.is_confirmed_and_active? %>
+	        			<%= link_to "Submit a ticket", new_ticket_path(@current_company.sub_domain), :class => "navbar-brand", :data => { :no_turbolink => true } %>
+	        		<% end %>	
+	        	<% end %>		  	          
+	        <% end %>
+		              
+        </div>
+        
+        
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right pull-right">
+		        	<% if current_user && session[:user_id] %>
+			        	<% if is_admin? %>        	
+
+				          		<li><%= link_to t("general.footer_pages"), admin_footer_pages_path  %></li>
+				          		<li><%= link_to t("general.contacts"), admin_contacts_path  %></li>
+				          		<!--<li><%= link_to t("general.languages"), admin_languages_path  %></li>
+				          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
+				          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>-->
+					      <% end %>  
+										<% if @current_company and is_company_admin? %>
+											<li><%= link_to t("general.company_profile"), company_profile_path(@current_company.sub_domain)  %></li>
+										<% end %>	
+										<% if @current_company %>
+				          		<li><%= link_to t("general.profile"), profile_path(@current_company.sub_domain)  %></li>
+				          		<li><%= link_to t("general.change_password"), change_password_path(@current_company.sub_domain)  %></li>
+				          	<% else %>
+				          		<li><%= link_to t("general.profile"), admin_profile_path  %></li>
+				          		<li><%= link_to t("general.change_password"), admin_change_password_path %></li>				          	
+				          	<% end %>	
+				          	<!--<li><%#= link_to t("general.logout"), "/logout?sub_domain="+@current_company.sub_domain %></li>-->
+				          	<li data-no-turbolink><%= link_to t("general.logout"), "/logout" %></li>
+	      
+			        <% else %>
+			        	<% if @current_company %>
+			        		<li><%= link_to t("general.home"), "/companies/#{@current_company.sub_domain}?home=true"  %></li>
+			        		<% if @current_company.is_confirmed_and_active? %>
+			          		<li><%= link_to t("general.sign_up"), signup_path(@current_company.sub_domain)  %></li>
+			          		<li><%= link_to t("general.login"), login_path(@current_company.sub_domain)  %></li>
+			          	<% end %>	
+			          <% else %>	
+			        		<li><%= link_to t("general.join_us"), join_us_path  %></li>
+			        		<li><%= link_to t("general.contact_us"), "/contact_us"  %></li>	          
+			          <% end %>	
+			       	<% end %>				   
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>

@@ -1,0 +1,59 @@
+<div id="search_form" style="display:none;">
+  <%= form_for [:admin, @ticket], :method => "get", :remote => true, :html => { :class => 'form-inline' } do |f| %>
+    <fieldset>
+      <legend></legend>
+
+      <% @params_arr.each do |fields, field| %>
+        <% field_name = fields.to_s %>
+        <% field.each do |settings, field_type| %>
+          <div class="control-group">
+             <%= f.label field_name.capitalize, :class => 'control-label' %>
+             <div class="form-group">
+                <% if field_type == 'text' %>
+                  <%= f.text_field field_name, :value => (session[:search_params] ? session[:search_params][field_name] : ""), :class => 'form-control' %>
+                <% end %>
+             </div>
+           </div>
+        <% end %>
+      <% end %>
+		  <div class="control-group">
+		    <%= f.label :priority_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%= f.select :priority_id, options_for_select([["Select Priority", ""]] + get_ticket_priority, :selected => (session[:search_params] ? session[:search_params]["priority_id"] : "")), {}, { :class => 'form-control'} %>
+		    </div>	
+		  </div>			  
+		  <div class="control-group">
+		    <%= f.label :status_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%= f.select :status_id, options_for_select([["Select Status", ""]] + get_ticket_status, :selected => (session[:search_params] ? session[:search_params]["status_id"] : "")), {}, { :class => 'form-control'} %>
+		    </div>	
+		  </div>	
+		  	
+		  <div class="control-group">
+		    <%= f.label :company_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%= f.select :company_id, options_for_select(get_companies, :selected => (session[:search_params] ? session[:search_params]["company_id"] : "")), {}, :data => { :remote => true, :url => url_for(:controller => "companies", :action => "users") }, :class => 'form-control' %>
+		    </div>	
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :user_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%#= f.select :user_id, options_for_select(get_users, :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
+		    	<%= f.select :user_id, options_for_select([["Select User", ""]], :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
+		    </div>	
+		  </div>			  
+			  		  
+	    <div class="control-group form-action">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+	        <%= f.submit t("general.search"), :class => 'btn btn-warning btn-lg ', :id => 'search_button_id' %>
+	        <span data-no-turbolink>
+		        <%= link_to 'Cancel', 'javascript:void(0)', :onclick => '$(this).closest("form").closest("div").hide()', :class => 'btn btn-warning btn-lg' %>
+		      </span>	    		
+	      </div>	
+	    </div>		  
+
+    </fieldset>
+
+  <% end %>
+</div>

@@ -1,0 +1,63 @@
+<%- model_class = Ticket -%>
+
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<div class="row centered">
+	<div class="col-lg-12">
+		<h1>
+	  	<%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (<span id="count_records"><%= @tickets.count %></span>)
+			<div class="searchRight fr">
+				<%= link_to t("general.search"), "javascript:void(0)", :class => 'btn btn-warning btn', 'id' => 'search_button' %>&nbsp;
+			</div>			
+		</h1>
+	</div>
+</div>
+
+<div class="col-lg-12">
+	<div id="div_update_search">
+	  <% params[:model] = controller_name.classify %>
+	  <%= render "search" %>
+	</div>
+	
+	<%= render "sidebar" %>
+	
+	<div class="col-lg-10">
+		
+			<%= form_for @o_single, :url => staff_tickets_path(@current_company.sub_domain), :html => { :id => "index_form" }, :remote => true do |f| %>
+				<% if current_user.is_company_admin? %>
+					<div class="dropdown-menu">
+						<b><%= t("lables") %></b>
+						<ul>
+							<% if @tags.present? %>
+								<% @tags.each do |t| %>
+						    <li>
+						    	<%= check_box_tag "tag_check["+t.id.to_s+"]", "" %>&nbsp;<%= t.name %>
+						    </li>
+						    <% end %>
+						    <li><hr /></li>
+						    <li><%= link_to t('general.apply'), "#apply_labels", :id => "apply_labels", :class => 'btn btn-primary btn-mini' %></li>
+						  <% end %>  
+					    <li>&nbsp;</li>
+					    <li><%= link_to t("general.manage_labels"), tags_path(@current_company.sub_domain), :class => 'btn btn-warning btn-mini', 'id' => '' %></li>
+					    <li>&nbsp;</li>
+					    <li><%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-mini btn-danger' %></li>
+						</ul>
+					</div>
+					<div class="cl">&nbsp;</div>
+					<div id="div_update">
+						<%= render "fetchAll" %>
+					</div>			
+					<%= hidden_field_tag "tag_or_destroy", "", :id => "tag_or_destroy" %>
+				<% else %>
+					<div id="div_update">
+						<%= render "fetchAllTickets" %>
+					</div>					
+				<% end %>	
+
+			<% end %>		
+		
+	</div>	
+	
+</div>
+

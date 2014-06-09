@@ -1,0 +1,27 @@
+<div class="col-lg-12">
+<%= form_for @o_single, :url => (@o_single.new_record? ? tags_path(@current_company.sub_domain) : tag_path(@current_company.sub_domain, @o_single)), :html => { :class => 'form-inline' } do |f| %>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="form-group">
+      	<%= f.hidden_field :company_id, :value => @current_company.id %>
+      	<%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.text_field :name, :class => 'form-control' %>
+       	<% if @o_single.errors[:name].any? %>
+        	<span class="text-error"><%= @o_single.errors[:name].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+    	<label class="control-label">&nbsp;</label>
+    	<div class="form-group">
+      	<%= f.submit nil, :class => 'btn btn-primary' %>
+      	<%= link_to 'Cancel', tags_url, :class => 'btn' %>
+    	</div>
+    </div>	
+
+<% end %>
+</div>
+

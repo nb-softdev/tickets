@@ -1,0 +1,25 @@
+<div class="cl">&nbsp;</div>
+	<table class="table-condensed" width="100%">
+	  <% if @ticket_notes.count > 0 %>
+		    <% @ticket_notes.each do |t| %>
+				  <tr>
+					  <td>
+		        	<p>
+		        		<div id="show_note_<%= t.id.to_s %>">
+		        			<%= t.notes.html_safe if t.notes %>....
+		        			<%= link_to "Edit", edit_ticket_note_path(@current_company.sub_domain, t), :remote => true %>
+		        		</div>
+		        		<div id="edit_note_<%= t.id.to_s %>"></div>
+		        	</p>
+		        	<span style="font-size: 14px;">Posted by <strong><i><%= t.user.try(:name) %></i></strong> On <strong><i><%= t.created_at.to_s(:default_date_time) %></i></strong></span>					  	
+	
+		        </td>
+		     </tr>
+		     <tr><td colspan="2"><hr /></td></tr>
+		    <% end %>
+	  <% else %>
+	    <tr>
+	      <td><%= t('general.record_not_found') %></td>
+	    </tr>
+	  <% end %>
+	</table>

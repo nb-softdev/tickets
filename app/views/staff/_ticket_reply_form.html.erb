@@ -1,0 +1,55 @@
+<%= form_for @ticket_reply, :url => staff_ticket_reply_create_path, :remote => true, :html => { :multipart => true, :class => 'form-inline' } do |f| %>
+<%= f.hidden_field :ticket_id, :value => params[:id] %>
+<%= f.hidden_field :user_id, :value => current_user.id %>
+<%= f.hidden_field :user_type, :value => "Staff" %>
+<%= csrf_meta_tag %>
+
+<div class="control-group">
+	<label class="control-label">&nbsp;</label>
+	<div class="form-group">
+		<div id="flash_message" class=""></div>
+	</div>
+</div>
+
+<div class="cl"></div>
+
+<div class="control-group">
+	<label class="control-label"></label>
+	<div class="form-group">
+		<%= f.text_area :description, :class => 'form-control textAreaBig' %>
+		<% if @ticket_reply.errors[:description].any? %>
+		<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
+		<% end %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	<div class="form-group">
+		<%= f.file_field :attached_file, :class => 'form-control form-control-browse' %>
+	</div>
+</div>
+<br />
+
+<div class="control-group">
+	<label class="control-label">&nbsp;</label>
+	<div class="form-group">
+		<%= f.submit nil, :class => 'btn btn-warning btn-lg', :value => "Reply" %>
+		<%= link_to "Cancel", staff_tickets_path(@current_company.sub_domain), :class => 'btn btn-warning btn-lg' %>
+	</div>
+</div>
+
+<% end %>
+
+<script type="text/javascript">
+	$(document).on('page:load', function() {
+		window['rangy'].initialized = false
+	})
+	$(document).ready(function() {
+
+		//$('.wysihtml5').each(function(i, elem) {
+		//$(elem).wysihtml5();
+		//});
+
+	})
+</script>

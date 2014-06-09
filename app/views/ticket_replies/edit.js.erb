@@ -1,0 +1,8 @@
+<% if params[:cancel] %>
+	$("#edit_desc_<%= params[:id].to_s %>").html("");
+	$("#show_desc_<%= params[:id].to_s %>").html("<%= escape_javascript(render("update")) %>");
+	$("#show_desc_<%= params[:id].to_s %>").show();
+<% else %>
+	$("#edit_desc_<%= params[:id].to_s %>").html("<%= escape_javascript(render("edit")) %>");
+	$("#show_desc_<%= params[:id].to_s %>").hide();
+<% end %>

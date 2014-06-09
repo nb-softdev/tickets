@@ -1,0 +1,35 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			<%= t("general.company_details") %>
+		</h1>
+	</div>
+</div>
+<div class="col-lg-12">
+	<% if @current_company.present? %>
+		<% if @current_company.is_confirmed_and_active? %>
+			<table class="table-condensed">
+				<tr><td width="40%">Company Name:</td><td><%= @current_company.name %></td></tr>
+				<tr><td>Company URL:</td><td><%= @current_company.url %></td></tr>
+				<tr><td>Contact:</td><td><%= @current_company.mobile %></td></tr>
+				<tr><td>Email:</td><td><%= @current_company.email %></td></tr>
+				<tr><td>Sub Domain:</td><td><%= @current_company.sub_domain %></td></tr>
+			</table>
+			
+			<% if current_user %>
+				<%= render "statistic" %>
+			<% end %>		
+			
+		<% else %>	
+			<h3>
+				<%= "#{params[:sub_domain]} is not activated. Please contact to administrator." %>
+				<h2><%= link_to 'Contact To Administrator', contact_us_path, :class => "btn btn-warning btn-lg" %></h2>
+			</h3>
+		<% end %>				
+	<% else %>	
+		<h3>
+			<%= "#{params[:sub_domain]} is not registered with SupportEngine." %>
+			<h2><%= link_to 'JOIN US', join_us_path, :class => "btn btn-warning btn-lg" %></h2>
+		</h3>
+	<% end %>
+</div>

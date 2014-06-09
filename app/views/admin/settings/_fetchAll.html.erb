@@ -1,0 +1,55 @@
+<%= form_for @o_single, :url => { :action => 'index' }, :html => { :id => "index_form" }, :method => "get", :remote => true do |f| %>
+<table class="table table-striped">
+ <thead> 
+  <tr>
+  	<th width="5%"><%= check_box_tag "check_all", "" %><%= t("general.all") %></th>
+    <th width="15%"><%= sortable "default_name", t("default_name") %></th>
+    <th width="15%"><%= sortable "default_label", t("default_label") %></th>
+    <th width="20%"><%= sortable "default_value", t("default_value") %></th>
+    <th width="15%"><%= sortable "created_at", t("general.date")%></th>
+    <th width="15%"><%= t("general.actions") %></th>
+  </tr>
+ </thead> 
+  
+  <tbody>
+    <% if @o_all.size > 0 %>
+      <% @o_all.each do |o_row| %>
+        <tr>
+        	<th><%= check_box_tag "rec["+o_row.id.to_s+"]", "" %></th>
+          <td><%= o_row.default_name %></td>
+          <td><%= o_row.default_label %></td>
+          <td><%= o_row.default_value %></td>
+          <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
+          <td> 
+			      <%= link_to t('general.edit'),
+			                  edit_admin_setting_path(o_row), :class => 'btn btn-mini' %>
+			      <%= link_to t('general.destroy'),
+			                  admin_setting_path(o_row),
+			                  :method => :delete,
+			                  :data => { :confirm => t('general.confirm') },
+			                  :class => 'btn btn-mini btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><th colspan="6"><%= t("general.record_not_found") %></th></tr>
+    <% end %>      
+  </tbody>
+</table>
+<div class="fr">
+	<table>
+		<tr>
+			<td><%= render 'layouts/common_pager' %></td>
+			<td>
+				<%= select_tag "set_pager_number", options_for_select(get_pager_numbers, session[:set_pager_number]), 
+																	:data => { :remote => true, :url => url_for(:action => "index") }, 
+																	:class => ""  %>
+			</td>
+			<td>&nbsp;</td>
+			<td>																	
+				<%= will_paginate @o_all %>
+			</td>	
+		</tr>	
+	</table>																	
+</div>	
+<% end %>

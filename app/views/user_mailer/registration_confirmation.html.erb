@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+  <html lang='en'>
+    <head>
+      <meta charset='utf-8'>
+      <title></title>
+    </head>
+    <body>
+      <div class='email-body'>  
+        <h2><%= t("mail.registration_confirmation.complete_this_step_to_start_using_your_account") %></h2>
+
+        <%= t("mail.registration_confirmation.mail_header").sub("%{username}", @username) %>
+  
+        <p><%= t("mail.registration_confirmation.you_are_recieving_this_email_because").sub("%{application}", @application) %></p>
+
+        <p><%= t("mail.registration_confirmation.to_complete_the_sign_up_process").sub("%{application}", @application) %></p>
+
+        <p><a href='<%= activation_link_url(@registration_key) %>'><%= activation_link_url(@registration_key) %></a></p>  
+  
+        <p><%= t("mail.registration_confirmation.looking_forward_to_having_you_on").sub("%{application}", @application) %></p>
+
+        <p><%= t("mail.registration_confirmation.thank_you").sub("%{application}", @application) %>,</p>
+  
+      </div>
+    </body>
+</html>

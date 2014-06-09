@@ -1,0 +1,39 @@
+<% if @o_all.size > 0 %>
+  <% @o_all.each do |o_row| %>
+		<fieldset class="scheduler-border">
+		    <legend class="scheduler-border"><strong>Ticket ID - </strong>
+		    	<%= link_to o_row.ticket_secret, ticket_path(@current_company.sub_domain, o_row.ticket_secret) %>
+		    </legend>
+		    		<table class="table-condensed" width="100%">
+		    			<thead>
+		    			<tr>
+		    				<td width="15%" class="txtRight" valign="top">Subject:</td>
+		    				<td width="25%"><%= o_row.subject %></td>
+		    				<td width="15%" class="txtRight">Ticket Type:</td>
+		    				<td width="25%"><%= o_row.ticket_type %></td>
+			          <% if o_row.is_last_reply_by_staff?(current_user.id) %>
+			          	<td width="20%" class="redDark brdTop0"><%=  "Awaiting for reply" %></td>
+			          <% else %>	
+			          	<td width="20%" class="greenStart brdTop0"><%=  "Reply Sent" %></td>
+			          <% end %>
+		    			</tr>
+		    			<tr>
+		    				<td width="15%" class="txtRight">Priority:</td>
+		    				<td width="25%"><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
+		    				<td width="15%" class="txtRight">Status:</td>
+		    				<td width="25%"><%= ticket_status_hash[o_row.status_id.to_s] %></td>
+			          <td width="20%" class="brdTop0">
+			          	<%= link_to "Reply", ticket_path(@current_company.sub_domain, o_row.ticket_secret), :class => 'btn btn-warning btn-lg' %>
+			          </td>		    						    				
+		    			</tr>
+
+		    			</thead>
+		    		</table>			    		
+		</fieldset>
+				<div class="fr">
+					<%= will_paginate @o_all %>
+				</div>		    			
+  <% end %>
+<% else %>
+  <table class="table-condensed"><tr><th colspan="6"><%= t("general.record_not_found") %></th></tr></table>
+<% end %>

@@ -1,0 +1,7 @@
+$("#div_update").html("<%= escape_javascript(render("fetchAll")) %>");
+$("#count_records").html("<%= @o_all.count %>");
+$("#spinner").hide();
+	
+$('#check_all').click (function() {
+  $(this).closest('table').find('input[type=checkbox]').prop('checked', this.checked);
+});

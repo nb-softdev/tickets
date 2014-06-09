@@ -1,0 +1,62 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1> Ticket Details </h1>
+	</div>
+</div>
+
+<div class="col-lg-12">
+	<% if @ticket %>
+
+	<fieldset class="scheduler-border">
+		<legend class="scheduler-border">
+			Ticket Information
+		</legend>
+		<strong><%= @ticket.subject %></strong>
+		<!--<p><%#= @ticket.description.html_safe if @ticket.description %></p>-->
+		<% if @ticket.attached_file.present? %>
+		<fieldset class="scheduler-border">
+			<legend class="scheduler-border">
+				Attachments
+			</legend>
+			<%= link_to @ticket.attached_file.path.split("/").last, download_path(@current_company.sub_domain, @ticket.id, 'ticket'), :style => 'text-decoration: underline; color:#000;' %>
+		</fieldset>
+		<% end %>
+
+		<table class="table-condensed">
+			<tr>
+				<td>Ticket ID:</td><td><strong><%= @ticket.ticket_secret %></strong></td><td width="40%">&nbsp;</td><td>Ticket Type:</td><td><%= @ticket.ticket_type %></td>
+			</tr>
+
+			<tr>
+				<td>Priority:</td><td><%= ticket_priority_hash[@ticket.priority_id.to_s] %></td><td width="40%">&nbsp;</td><td>Status:</td><td><%= ticket_status_hash[@ticket.status_id.to_s] %></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset class="scheduler-border">
+		<legend class="scheduler-border">
+			Conversation
+		</legend>
+		<div id="ticket-replies-list">
+			<%= render partial: 'ticket_reply_list' %>
+		</div>
+	</fieldset>
+
+	<% else %>
+
+	<fieldset class="scheduler-border">
+		<legend class="scheduler-border">
+			Ticket not found
+		</legend>
+		Ticket is not exists in the system.
+	</fieldset>
+
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		//$("#ticket_reply_description").focus();
+	}); 
+</script>
+

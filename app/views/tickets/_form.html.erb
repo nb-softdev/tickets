@@ -1,0 +1,164 @@
+<div class="col-lg-12">
+	<%= form_for @ticket, :html => { :onload => "getCaptcha();", :class => 'form-inline', :id => "ticket_form" } do |f| %>
+	  <% if current_user.present? %>
+	    <%= f.hidden_field :user_id, :value => current_user.id %>
+	  <% end %>
+	
+	  <% unless current_user.present? %>
+	    <%= render :partial => 'userInfo', :locals => { :f => f } %>
+	  <% end %>
+	  
+	<% if @ticket.new_record? %>
+		<%= f.hidden_field :company_id, :value => @current_company.id %>
+		<fieldset class="scheduler-border">
+	    <legend class="scheduler-border">Message Details</legend>
+	    
+	    
+	    <div class="control-group">
+	      <%= f.label :ticket_type, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group mt10">
+			    <%= f.radio_button :ticket_type, "technical" %>&nbsp;Technical
+			    <%= f.radio_button :ticket_type, "general", :checked => true %>&nbsp;General
+			    <%= f.radio_button :ticket_type, "sell" %>&nbsp;Sell
+	      </div>
+	    </div>	
+	    
+	    <div class="cl">&nbsp;</div>	    
+	    
+	    
+	    <div class="control-group">
+	      <%= f.label :subject, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :subject, :class => 'form-control' %>
+	       	<% if @ticket.errors[:subject].any? %>
+	        	<span class="text-error text-message"><%= @ticket.errors[:subject].first %></span>
+	      	<% end %>        
+	      </div>
+	    </div>	    
+
+
+	    <div class="control-group">
+	      <%= f.label :description, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+
+			  
+				<%= f.hidden_field :status_id, :value => 1 %>
+
+	    <div class="control-group">
+	      <%= f.label :priority_id, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'form-control'} %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.file_field :attached_file, :class => 'form-control form-control-browse' %>
+	      </div>
+	    </div>	    
+
+		</fieldset>
+	  
+	<% end %>  
+	  
+	  
+	<% unless current_user.present? %>  
+	<fieldset class="scheduler-border">
+	    <legend class="scheduler-border">Verify Submission</legend>
+	    <!--<div class="control-group">
+	      <%#= f.label :tag_list, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%#= f.text_field :tag_list, :class => 'form-control' %>
+	      </div>
+	    </div>-->		    
+	    <div class="control-group">
+	    	<label class='control-label'>
+	      	<%= t("Verify Yourself") %>
+	    	</label>
+	    	
+	      <div class="form-group">
+	      	<input type="text" id="txtInput" class='form-control'/>
+	      	<span id="captcha_error" class=""></span>
+	      	<p>Please enter the text you see in at the bottom. This is required to prevent automated submission of Tickets.</p>
+	      </div>
+	    </div>			  
+	  
+	  
+	    <div class="control-group">
+	    	<label class='control-label'>&nbsp;</label>
+	    	
+	      <div class="form-group">
+		      
+		      <div id="captcha">
+		        <div id="captcha_gen" >
+			        <strong><div class="fl txtCaptcha" id="txtCaptcha"></div></strong>
+			        <input type="hidden" id="txtCaptchaHidden"/>
+		        </div>
+		      </div>
+		      <a href="javascript:void(0);" onClick="getCaptcha();"/>Refresh</a>
+	      </div>
+	    </div>
+	</fieldset>
+	<% end %> 
+	  
+    <div class="control-group">
+    	<label class="control-label">&nbsp;</label>
+    	<div class="form-group">
+	    	<% unless current_user.present? %>
+	    		<%= f.button "Submit", :class => 'btn btn-warning btn-lg', :id => "sub_btn" %>
+	    	<% else %>
+	    		<%= f.submit "Submit", :class => 'btn btn-warning btn-lg', :id => "loader_id" %>
+	    	<% end %>
+	    	<%= link_to 'Cancel', root_path, :class => 'btn btn-warning btn-lg' %>
+				<span id="spinner" style="display: none;" class="loaderimgText">
+				  <%= image_tag "ajax-loader_wheel.gif" %>
+				</span>		      		    	
+      </div>	
+    </div>
+	 </div>
+	<% end %>
+</div>	
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+	
+	
+  $(document).ready(function(){
+
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
+    
+	  $('#sub_btn').click (function() {
+	  	if(ValidCaptcha() == false) {
+  			$("#captcha_error").html("Please enter valide value");
+  			$("#captcha_error").addClass("text-error text-message");
+  			$('#captcha_error').focus();
+	  		return false;
+	  	} else {
+	  		$("#spinner").show();
+	  		if($("#user_email").val() == "") {
+	  			$("#email_error").html("can't be blank");
+	  			$("#email_error").addClass("text-error text-message");
+	  			$("#captcha_error").html("");
+	  			$("#spinner").hide();
+	  			$('#user_email').focus();
+	  			return false;
+	  		} else {
+	  			setTimeout(function(){$.post( "/tickets/create", $( "#ticket_form" ).serialize() );},2000);
+	  		}	
+	  	}	
+	  	
+	  });	    
+
+  })
+</script>

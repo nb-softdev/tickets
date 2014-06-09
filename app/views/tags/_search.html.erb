@@ -1,0 +1,38 @@
+<div id="search_form" style="display:none;">
+  <%= form_for @o_single, :url => tags_path(@current_company.sub_domain), :method => "get", :remote => true, :html => { :class => 'form-inline' } do |f| %>
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Filter</legend>
+      <table width="100%">
+      	<tr>
+		      <% @params_arr.each do |fields, field| %>
+		        <% field_name = fields.to_s %>
+		        <% field.each do |settings, field_type| %>
+		        <td width="50%">
+		          <div class="control-group">
+		             <%= f.label field_name.capitalize, :class => 'control-label' %>
+		             <div class="form-group">
+		                <% if field_type == 'text' %>
+		                  <%= f.text_field field_name, :value => (session[:search_params] ? session[:search_params][field_name] : ""), :class => 'form-control' %>
+		                <% end %>
+		             </div>
+		           </div>
+		         </td>  
+		        <% end %>
+		      <% end %>
+				</tr>
+			<tr>
+				<td width="33%">
+		      <div class="form-group form-action">
+		      <label class="control-label">&nbsp;</label>
+		        <%= f.submit t("general.search"), :class => 'btn btn-warning', :id => 'search_button_id' %>
+		        <span data-no-turbolink>
+		        <%= link_to 'Cancel', 'javascript:void(0)', :onclick => '$(this).closest("form").closest("div").hide()', :class => 'btn btn-warning' %></span>
+		        <%= link_to 'Reset', tags_path(@current_company.sub_domain), :class => 'btn btn-warning' %></span>
+		      </div>
+		    </td>
+		   </tr>   
+		</table>
+    </fieldset>
+
+  <% end %>
+</div>

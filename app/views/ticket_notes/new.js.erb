@@ -1,0 +1,5 @@
+<% if params[:cancel] %>
+	$("#note_form").html("");
+<% else %>
+	$("#note_form").html("<%= escape_javascript(render("new")) %>");
+<% end %>

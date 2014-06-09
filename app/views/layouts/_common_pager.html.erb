@@ -1,0 +1,10 @@
+<%= text_field_tag "page", params[:page].present? ? params[:page] : 1, :id => 'common_pager', :style => 'width:40px;padding-left:5px;padding-right:5px;' %>
+
+<%#= javascript_tag "
+$('#common_pager').keydown(function (e) {
+    if(e.keyCode == 13)
+    {
+        jQuery(this).closest('form').submit();
+    }
+});
+" %>

@@ -1,0 +1,40 @@
+<%= form_for @ticket, :url => ticket_actions_path(@current_company.sub_domain, @ticket.id), :remote => true, :html => { :class => 'form-inline' } do |f| %>
+	<td>&nbsp;</td>
+	
+	<%= f.hidden_field :id, :value => @ticket.id %>
+	<% if current_user.is_company_admin_or_staff? %>
+		<td>
+	    <div class="control-group">
+	      <%= f.label :staff_id, :class => 'control-label' %>
+	      <div class="form-group">
+				<%= f.select :staff_id, options_for_select(get_company_staffs(@current_company), @ticket.staff_id), {}, { :class => 'form-control', :style => "width: 150px; height: 40px;" } %>
+	      </div>
+	    </div>
+		</td>
+	<% end %>	
+	<td>
+    <div class="control-group">
+      <%= f.label :priority_id, :class => 'control-label' %>
+      <div class="form-group">
+		     <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'form-control', :style => "width: 150px; height: 40px;" } %>
+      </div>
+    </div>
+	</td>			
+	<td>
+    <div class="control-group">
+      <%= f.label :status_id, :class => 'control-label' %>
+      <div class="form-group">
+		    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'form-control', :style => "width: 150px; height: 40px;"} %>			    
+      </div>
+    </div>			
+	</td>
+	<td class="ticket-actions" colspan="2">
+		<%= f.submit "Submit", :class => 'btn btn-warning btn-mini', :name => "ticket_actions_submit" %>
+		<%= link_to 'Close', ticket_actions_path(@current_company.sub_domain, @ticket.id, :cancel => true), :class => 'btn btn-warning btn-mini', :remote => true %>
+		<%# if @save_record == true %>
+			<!--<span class="greenStart"><%#= t("general.successfully_updated") %></span>-->
+		<%# end %>		
+	</td>
+
+	
+<% end %>					

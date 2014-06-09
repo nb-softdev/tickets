@@ -1,0 +1,23 @@
+<table class="table-condensed" width="100%">
+  <% if @ticket_replies.count > 0 %>
+	    <% @ticket_replies.each do |t| %>
+			  <tr>
+				  <td>
+	        	<p>
+	        		<%= t.description.html_safe if t.description %><br />
+		        	<% if t.attached_file.present? %>
+		        		<%= link_to t.attached_file.path.split("/").last, download_path(@ticket.company.sub_domain, t.id, 'ticket_reply'), :style => "text-decoration: underline;" %>
+		        	<% end %>
+	        	</p>
+	        	<span style="font-size: 14px;">Posted by <strong><i><%= t.user.name.humanize %></i></strong> On <strong><i><%= t.created_at.to_s(:default_date_time) %></i></strong></span>					  	
+
+	        </td>
+	     </tr>
+	     <tr><td colspan="2"><hr /></td></tr>
+	    <% end %>
+  <% else %>
+    <tr>
+      <td><%= t('general.record_not_found') %></td>
+    </tr>
+  <% end %>
+</table>

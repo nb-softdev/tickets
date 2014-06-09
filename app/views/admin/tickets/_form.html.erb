@@ -1,0 +1,60 @@
+<div class="col-lg-12">
+	<%= form_for ["admin", @ticket], :html => { :class => 'form-inline' } do |f| %>
+	  <%= f.hidden_field :user_id, :value => @ticket.user.id %>
+	
+	    <div class="control-group">
+	      <%= f.label :subject, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_field :subject, :class => 'form-control' %>
+	       	<% if @ticket.errors[:subject].any? %>
+	        	<span class="text-error text-message"><%= @ticket.errors[:subject].first %></span>
+	      	<% end %>        
+	      </div>
+	    </div>	    
+
+
+	    <div class="control-group">
+	      <%= f.label :description, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+	  
+	  
+		<%= f.hidden_field :status_id, :value => 1 %>
+
+	  
+	    <div class="control-group">
+	      <%= f.label :status_id, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'form-control'} %>
+	      </div>
+	    </div>	  
+	  
+	    <div class="control-group">
+	      <%= f.label :priority_id, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'form-control'} %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.file_field :attached_file, :class => 'form-control form-control-browse' %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group form-action">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+	      	<%= f.submit :name => "Submit", :value => "JOIN US", :class => 'btn btn-warning btn-lg' %>
+	      	<%= link_to 'Cancel', admin_tickets_path, :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>	
+
+	<% end %>
+</div>

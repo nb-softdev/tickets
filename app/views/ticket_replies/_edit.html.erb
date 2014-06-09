@@ -1,0 +1,23 @@
+<%= form_for @ticket_reply, :url => ticket_reply_path(@current_company.sub_domain, @ticket_reply, :submit => true), :remote => true, :html => { :multipart => true, :class => 'form-inline' } do |f| %>
+  <%= f.hidden_field :id, :value => params[:id] %>
+  <%= csrf_meta_tag %> 
+  
+	    <div class="control-group">
+	      <label class="control-label">&nbsp;</label>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket_reply.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+
+	    <div class="control-group">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+			    <%= f.submit nil, :class => 'btn btn-warning btn-lg', :value => "Reply" %>
+			    <%= link_to "Cancel", edit_ticket_reply_path(@current_company.sub_domain, @ticket_reply, :cancel => true), :class => 'btn btn-warning btn-lg', :remote => true %>
+	      </div>	
+	    </div>  
+        
+<% end %>

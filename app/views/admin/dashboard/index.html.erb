@@ -1,0 +1,30 @@
+<h2>User - Total Open Tickets</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Today's Open Tickets</th>
+        <th>Today's Close Tickets</th>
+        <th>Total Open Tickets</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td><%= Ticket.open.where("DATE(created_at) = ?", Date.today).count %></td>
+      <td><%= Ticket.close.where("DATE(created_at) = ?", Date.today).count %></td>
+      <td><%= Ticket.open.count %></td>
+    </tbody>
+  </table>
+<div class="clearb">&nbsp;</div>
+
+<h2>Staffs - Total Closed Tickets</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Today's Replies</th>
+        <th>Total Replies</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td><%= TicketReply.staff.where("DATE(created_at) = ?", Date.today).count %></td>
+      <td><%= TicketReply.staff.count %></td>
+    </tbody>
+  </table>

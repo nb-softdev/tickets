@@ -1,0 +1,49 @@
+<%= form_for ["admin", @o_single], :html => { :class => 'form-horizontal' } do |f| %>
+
+    <div class="control-group <%= @o_single.errors[:default_name].any? ? 'error' : '' %>">
+      <%= f.label :default_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :default_name, :class => 'input-xlarge' %>
+        <% if @o_single.errors[:default_name].any? %>
+          <span class="text-error text-message"><%= @o_single.errors[:default_name].first %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @o_single.new_record? %>
+    <div class="control-group <%= @o_single.errors[:default_label].any? ? 'error' : '' %>">
+      <%= f.label :default_label, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :default_label, :class => "input-xlarge" %>
+        <% if @o_single.errors[:default_label].any? %>
+          <span class="text-error text-message"><%= @o_single.errors[:default_label].first %></span>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="control-group <%= @o_single.errors[:default_value].any? ? 'error' : '' %>">
+      <%= f.label :default_value, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :default_value, :class => "input-xlarge" %>
+        <% if @o_single.errors[:default_value].any? %>
+          <span class="text-error text-message"><%= @o_single.errors[:default_value].first %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :is_active, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.check_box :is_active, :class => 'check_box' %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', admin_settings_url, :class => 'btn' %>
+    </div>
+
+<% end %>
+

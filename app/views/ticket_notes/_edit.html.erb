@@ -1,0 +1,32 @@
+<div class="cl">&nbsp;</div>
+<%= form_for @ticket_note, :url => ticket_note_path(@current_company.sub_domain, @ticket_note, :submit => true), :remote => true, :html => { :multipart => true, :class => 'form-inline' } do |f| %>
+  <%= f.hidden_field :id, :value => params[:id] %>
+  <%= f.hidden_field :ticket_id, :value => @ticket.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= csrf_meta_tag %> 
+
+			<% if @ticket_note.errors[:notes].any? %>
+		    <div class="control-group">
+		    	
+		      <div class="form-group">
+		        	<span class="text-error text-message"><%= @ticket_note.errors[:notes].first %></span>
+		      </div>
+		    </div>
+		  <% end %>  
+
+	    <div class="control-group">
+	    	
+	      <div class="form-group">
+	        <%= f.text_area :notes, :class => 'form-control textAreaBig' %>
+	      </div>
+	    </div>
+
+	    <div class="control-group">
+	    	
+	    	<div class="form-group">
+			    <%= f.submit nil, :class => 'btn btn-warning btn-small', :value => "Reply" %>
+			    <%= link_to "Cancel", edit_ticket_note_path(@current_company.sub_domain, @ticket_note, :cancel => true), :class => 'btn btn-warning btn-small', :remote => true %>
+	      </div>	
+	    </div>  
+        
+<% end %>
